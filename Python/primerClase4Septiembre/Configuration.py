@@ -1,7 +1,19 @@
 import pymssql
 import psycopg2
+import sqlite3
 #CONNECTION TO POSTGRESQL
+from sqlite3 import Error
+def sql_connection():
 
+    try:
+
+        con = sqlite3.connect('bitacora.db')
+
+        return con
+
+    except Error:
+
+        print(Error)
 #CONNECTION TO POSTGRESQL
 _postgre_server = "localhost"
 _postgre_database = "IF6201"
