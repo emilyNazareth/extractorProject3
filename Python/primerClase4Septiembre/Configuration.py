@@ -4,10 +4,9 @@ import sqlite3
 #CONNECTION TO POSTGRESQL
 from sqlite3 import Error
 def sql_connection():
-
     try:
 
-        con = sqlite3.connect('bitacora.db')
+        con = sqlite3.connect('Bitacora.db')
 
         return con
 
