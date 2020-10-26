@@ -15,15 +15,15 @@ def sql_connection():
 
         print(Error)
 #CONNECTION TO POSTGRESQL
-_postgre_server = "localhost"
-_postgre_database = "IF6201"
+_postgre_server = "163.178.107.7"
+_postgre_database = "extractorProject"
 _postgre_server_port = 5432
-_postgre_user = "postgres"
-_postgre_password = "soft3095"
+_postgre_user = "laboratorios"
+_postgre_password = "saucr.120"
 
 #CONNECTION TO SQL SERVER
 _sql_server = '163.178.107.10'
-_sql_database = 'IF6201_aplicada_B84778'
+_sql_database = 'extractorProject'
 _sql_server_port = 1433
 _sql_user = 'laboratorios'
 _sql_password = 'KmZpo.2796'
@@ -43,7 +43,7 @@ def get_date_from_sql(sp):
     try:
         con = mssql_connection()
         cur = con.cursor()
-        cur.execute("EXECUTE {} ".format(sp))
+        cur.execute("{} ".format(sp))
         data_return = cur.fetchall()
         con.commit()
 
