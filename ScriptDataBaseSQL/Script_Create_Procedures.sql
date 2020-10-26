@@ -1,7 +1,6 @@
-CREATE PROCEDURE get_all_clients
+Create PROCEDURE get_all_clients
 AS
 SELECT 
-	[ID],
 	[NAME],
 	[LAST_NAME],
 	[AGE],
@@ -11,7 +10,6 @@ FROM [dbo].[CLIENT]
 CREATE PROCEDURE get_all_sales
 AS
 SELECT 
-	[ID],
 	[ID_CLIENT],
 	[DESCRIPTION],
 	[TOTAL],
@@ -20,8 +18,7 @@ FROM [dbo].[SALE]
 
 CREATE PROCEDURE get_all_address_clients
 AS
-SELECT 
-	[ID],	
+SELECT 	
     [ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('ADDRESS', ADDRESS)) as ADDRESS,
 	[ADDRESS_NAME],
@@ -31,7 +28,6 @@ FROM [dbo].[ADDRESS_CLIENT]
 CREATE PROCEDURE get_all_phone_clients
 AS
 SELECT 
-	[ID],	
     [ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('NUMBER', NUMBER)) as NUMBER,	
 	[LAST_UPDATE]	
@@ -50,7 +46,6 @@ FROM [dbo].[CREDIT_CARD]
 CREATE PROCEDURE get_all_email_clients
 AS
 SELECT 
-	[ID],
 	[ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('EMAIL', EMAIL)) as EMAIL,	
 	[LAST_UPDATE]	
@@ -60,12 +55,12 @@ FROM [dbo].[EMAIL_CLIENT]
 
 
 ---PROCEDURE WITH PARAMETERS
-CREATE PROCEDURE get_all_clients_by_date
+Create PROCEDURE get_all_clients_by_date
 @init_date date,
 @final_date date
 AS
 SELECT 
-	[ID],
+	ID,
 	[NAME],
 	[LAST_NAME],
 	[AGE],
@@ -74,12 +69,13 @@ FROM [dbo].[CLIENT]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
 
+
+
 CREATE PROCEDURE get_all_sales_by_date
 @init_date date,
 @final_date date
 AS
 SELECT 
-	[ID],
 	[ID_CLIENT],
 	[DESCRIPTION],
 	[TOTAL],
@@ -87,6 +83,8 @@ SELECT
 FROM [dbo].[SALE]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
+
+
 
 CREATE PROCEDURE delete_all_clients
 @init_date date,
@@ -109,8 +107,7 @@ CREATE PROCEDURE get_all_address_clients_by_date
 @init_date date,
 @final_date date
 AS
-SELECT 
-	[ID],	
+SELECT 	
     [ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('ADDRESS', ADDRESS)) as ADDRESS,
 	[ADDRESS_NAME],
@@ -119,18 +116,22 @@ FROM [dbo].[ADDRESS_CLIENT]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
 
+
+
 CREATE PROCEDURE get_all_phone_clients_by_date
 @init_date date,
 @final_date date
 AS
 SELECT 
-	[ID],	
     [ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('NUMBER', NUMBER)) as NUMBER,	
 	[LAST_UPDATE]	
 FROM [dbo].[PHONE_CLIENT]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
+
+
+
 
 CREATE PROCEDURE get_all_credit_cards_by_date
 @init_date date,
@@ -146,19 +147,19 @@ FROM [dbo].[CREDIT_CARD]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
 
+
+
 CREATE PROCEDURE get_all_email_clients_by_clients
 @init_date date,
 @final_date date
 AS
 SELECT 
-	[ID],
 	[ID_CLIENT],
     CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('EMAIL', EMAIL)) as EMAIL,	
 	[LAST_UPDATE]	
 FROM [dbo].[EMAIL_CLIENT]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
-
 
 
 
