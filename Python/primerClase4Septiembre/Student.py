@@ -1,7 +1,8 @@
 import sys
 import csv
 import time
-
+from datetime import datetime
+from Bitacora import sqlite_insert
 from Configuration import mssql_connection, get_date_from_sql, postgresql_connection
 
 def extract_sqlserver(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d")):
@@ -38,9 +39,11 @@ def extract_sqlserver(init_date = "1999/01/01", final_date = time.strftime("%Y/%
                 with open(name, access, **newline) as outfile:
                     writer = csv.writer(outfile, quoting=csv.QUOTE_NONE)
                     writer.writerows(data)
+            # registro bitacoraSQL
+            tableSQLite = 'SQL'
+            entities = (name, datetime.now(), 'Extraccion de la tabla '+table+' de SQL')
+            sqlite_insert(tableSQLite, entities)
 
-
-                
     except IOError as e:
         print('Error {0} in the extract_sqlserver or func').format(
             e.erno, e.strerror)
@@ -55,6 +58,11 @@ def loader_csv_file_postgre(name, table):
         with open(name +'.csv', 'r') as f:
             cur.copy_from(f, table, sep=',')
             con_postgre.commit()
+
+        # registro bitacoraPostgres
+        tableSQLite = 'Postgres'
+        entities = (name+'.csv', datetime.now(), 'Se almacena los registros de la tabla ' + table + ' en Postgres')
+        sqlite_insert(tableSQLite, entities)
     except IOError as e:
         print("Error: {0} Uploading data to PostgreSQL: {1}".format(
             e.erno, e.strerror))
@@ -64,10 +72,10 @@ def loader_csv_file_postgre(name, table):
 
 if __name__ == "__main__":
     #extract_sqlserver()
-    # loader_csv_file_postgre('202010260915_CLIENT','client')
-    # loader_csv_file_postgre('202010260915_EMAIL_CLIENT','email_client')
-    # loader_csv_file_postgre('202010260915_ADDRESS_CLIENT','address_client')
-    # loader_csv_file_postgre('202010260915_CREDIT_CARD','credit_card')
-    # loader_csv_file_postgre('202010260915_PHONE_CLIENT','phone_client')
-    loader_csv_file_postgre('202010260915_SALE','sale')
+    #loader_csv_file_postgre('202010261105_CLIENT','client')
+     #loader_csv_file_postgre('202010261105_EMAIL_CLIENT','email_client')
+     #loader_csv_file_postgre('202010261105_ADDRESS_CLIENT','address_client')
+     #loader_csv_file_postgre('202010261105_CREDIT_CARD','credit_card')
+     #loader_csv_file_postgre('202010261105_PHONE_CLIENT','phone_client')
+    loader_csv_file_postgre('202010261105_SALE','sale')
 

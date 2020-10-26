@@ -3,7 +3,8 @@ from datetime import datetime
 from Configuration import sql_connection
 
 
-def sqlite_insert(conection, table, entities):
+def sqlite_insert(table, entities):
+    conection = sql_connection()
     cursorObj = conection.cursor()
 
     cursorObj.execute(
@@ -12,7 +13,4 @@ def sqlite_insert(conection, table, entities):
     conection.commit()
     print("Guardado con exito en bitacora")
 
-conection = sql_connection()
-table = 'SQL'
-entities = ('file6', datetime.now(), 'Extraccion de SQL')
-sqlite_insert(conection,table,entities)
+
