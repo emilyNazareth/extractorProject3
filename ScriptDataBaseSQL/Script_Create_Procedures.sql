@@ -1,3 +1,5 @@
+USE extractorProject
+
 Create PROCEDURE get_all_clients
 AS
 SELECT 
@@ -109,7 +111,7 @@ CREATE PROCEDURE delete_all_credits_card
 @init_date date,
 @final_date date
 AS
-DELETE FROM [dbo].[SALE]
+DELETE FROM [dbo].[CREDIT_CARD]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
 

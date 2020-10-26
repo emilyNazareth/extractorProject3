@@ -3,7 +3,28 @@ import csv
 import time
 from datetime import datetime
 from Bitacora import sqlite_insert
-from Configuration import mssql_connection, get_date_from_sql, postgresql_connection
+from Configuration import mssql_connection, get_date_from_sql, postgresql_connection, startRemoveSp
+
+
+def removeData(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d")):
+
+    data = ['delete_all_credits_card','delete_all_sales']
+    try:
+        for procedure in data:
+            query = procedure
+            sp = "exec " + query + " '" + init_date + "', '" + final_date + "';"
+            print(sp)
+            con_sql = mssql_connection()
+            startRemoveSp(sp)
+            if len(data) <= 0:
+                print('No data')
+
+    except IOError as e:
+        print('Error {0} in the extract_sqlserver or func').format(
+            e.erno, e.strerror)
+    finally:
+        con_sql.close()
+        print('Datos Borrados de SQL')
 
 def extract_sqlserver(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d")):
     data = [
@@ -72,10 +93,11 @@ def loader_csv_file_postgre(name, table):
 
 if __name__ == "__main__":
     #extract_sqlserver()
-    #loader_csv_file_postgre('202010261105_CLIENT','client')
-     #loader_csv_file_postgre('202010261105_EMAIL_CLIENT','email_client')
-     #loader_csv_file_postgre('202010261105_ADDRESS_CLIENT','address_client')
-     #loader_csv_file_postgre('202010261105_CREDIT_CARD','credit_card')
-     #loader_csv_file_postgre('202010261105_PHONE_CLIENT','phone_client')
-    loader_csv_file_postgre('202010261105_SALE','sale')
+    """loader_csv_file_postgre('202010261359_CLIENT','client')
+    loader_csv_file_postgre('202010261359_EMAIL_CLIENT','email_client')
+    loader_csv_file_postgre('202010261359_ADDRESS_CLIENT','address_client')
+    loader_csv_file_postgre('202010261359_CREDIT_CARD','credit_card')
+    loader_csv_file_postgre('202010261359_PHONE_CLIENT','phone_client')
+    loader_csv_file_postgre('202010261359_SALE','sale')"""
+    removeData()
 

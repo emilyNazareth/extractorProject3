@@ -50,6 +50,15 @@ def get_date_from_sql(sp):
     except IOError as e:
         print("ERROR: {0} Getting data from MSSQL: {1}".format(e.erno, e.strerror))
 
+def startRemoveSp(sp):
+    try:
+        con = mssql_connection()
+        cur = con.cursor()
+        cur.execute("{} ".format(sp))
+        con.commit()
+    except IOError as e:
+        print('Delete Error')
+
 #PostgreSQL Coneection
 def postgresql_connection():
     try:
