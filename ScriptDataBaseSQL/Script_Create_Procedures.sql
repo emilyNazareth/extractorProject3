@@ -55,7 +55,7 @@ FROM [dbo].[EMAIL_CLIENT]
 
 
 ---PROCEDURE WITH PARAMETERS
-Create PROCEDURE get_all_clients_by_date
+CREATE PROCEDURE get_all_clients_by_date
 @init_date date,
 @final_date date
 AS
@@ -68,6 +68,8 @@ SELECT
 FROM [dbo].[CLIENT] 
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
+
+
 
 
 
@@ -102,6 +104,15 @@ AS
 DELETE FROM [dbo].[SALE]
 WHERE [LAST_UPDATE] >= @init_date AND
 	  [LAST_UPDATE] <= @final_date
+
+CREATE PROCEDURE delete_all_credits_card
+@init_date date,
+@final_date date
+AS
+DELETE FROM [dbo].[SALE]
+WHERE [LAST_UPDATE] >= @init_date AND
+	  [LAST_UPDATE] <= @final_date
+
 
 CREATE PROCEDURE get_all_address_clients_by_date
 @init_date date,
