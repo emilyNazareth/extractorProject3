@@ -3,12 +3,19 @@ import csv
 import time
 from datetime import datetime
 from Bitacora import sqlite_insert
-from Configuration import mssql_connection, get_date_from_sql, postgresql_connection, startRemoveSp
+from Configuration import mssql_connection, get_date_from_sql, postgresql_connection, startRemoveSp, startJobs
 
+
+def removeWithJobs():
+    sp = "USE msdb;\n EXEC dbo.sp_start_job N'delete_email_client' \n EXEC dbo.sp_start_job N'delete_phone_client' \n EXEC dbo.sp_start_job N'delete_address_client'"
+    print(sp)
+    startJobs(sp)
 
 def removeData(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d")):
+    #LLAMADO A ELIMINAR DATOS MIGRADOS USANDO JOBS
+    removeWithJobs()
 
-    data = ['delete_all_credits_card','delete_all_sales']
+    data = ['delete_all_credits_card','delete_all_sales', 'delete_all_clients']
     try:
         for procedure in data:
             query = procedure
@@ -26,7 +33,7 @@ def removeData(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d"))
         con_sql.close()
         print('Datos Borrados de SQL')
 
-def extract_sqlserver(init_date = "1999/01/01", final_date = time.strftime("%Y/%m/%d")):
+def extract_sqlserver(init_date = "2020/01/01", final_date = time.strftime("%Y/%m/%d")):
     data = [
         ['get_all_clients_by_date','CLIENT',                ['NAME','LAST_NAME','AGE', 'LAST_UPDATE']],
         ['get_all_sales_by_date','SALE',                    ['ID_CLIENT','DESCRIPTION','TOTAL','LAST_UPDATE']],
@@ -92,12 +99,12 @@ def loader_csv_file_postgre(name, table):
 
 
 if __name__ == "__main__":
-    #extract_sqlserver()
-    """loader_csv_file_postgre('202010261359_CLIENT','client')
-    loader_csv_file_postgre('202010261359_EMAIL_CLIENT','email_client')
-    loader_csv_file_postgre('202010261359_ADDRESS_CLIENT','address_client')
-    loader_csv_file_postgre('202010261359_CREDIT_CARD','credit_card')
-    loader_csv_file_postgre('202010261359_PHONE_CLIENT','phone_client')
-    loader_csv_file_postgre('202010261359_SALE','sale')"""
-    removeData()
+    extract_sqlserver()
+    #loader_csv_file_postgre('202010262345_CLIENT','client')
+    #loader_csv_file_postgre('202010262345_EMAIL_CLIENT','email_client')
+    #loader_csv_file_postgre('202010262345_ADDRESS_CLIENT','address_client')
+    #loader_csv_file_postgre('202010262345_CREDIT_CARD','credit_card')
+    #loader_csv_file_postgre('202010262345_PHONE_CLIENT','phone_client')
+    #loader_csv_file_postgre('202010262345_SALE','sale')
+    #removeData()
 

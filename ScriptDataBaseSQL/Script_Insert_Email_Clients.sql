@@ -1,3 +1,4 @@
+use extractorProject
 insert into EMAIL_CLIENT (ID_CLIENT, EMAIL, LAST_UPDATE) values (2917491, ENCRYPTBYPASSPHRASE('EMAIL','prough0@hp.com'), '2020/08/14');
 insert into EMAIL_CLIENT (ID_CLIENT, EMAIL, LAST_UPDATE) values (3823628, ENCRYPTBYPASSPHRASE('EMAIL','mthoms1@naver.com'), '2020/08/02');
 insert into EMAIL_CLIENT (ID_CLIENT, EMAIL, LAST_UPDATE) values (6309505, ENCRYPTBYPASSPHRASE('EMAIL','schamp2@noaa.gov'), '2020/01/31');

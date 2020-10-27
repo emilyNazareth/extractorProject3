@@ -1,6 +1,7 @@
 import pymssql
 import psycopg2
 import sqlite3
+
 #CONNECTION TO POSTGRESQL
 from sqlite3 import Error
 def sql_connection():
@@ -21,11 +22,11 @@ _postgre_user = "laboratorios"
 _postgre_password = "saucr.120"
 
 #CONNECTION TO SQL SERVER
-_sql_server = '163.178.107.10'
+_sql_server = 'LAPTOP-HHKEADRC'
 _sql_database = 'extractorProject'
 _sql_server_port = 1433
-_sql_user = 'laboratorios'
-_sql_password = 'KmZpo.2796'
+_sql_user = "luis"
+_sql_password = '123'
 
 #SQL SERVER CONNECTION FUNC
 def mssql_connection():
@@ -59,6 +60,15 @@ def startRemoveSp(sp):
     except IOError as e:
         print('Delete Error')
 
+def startJobs(sp):
+    try:
+        con = mssql_connection()
+        cur = con.cursor()
+        cur.execute(sp)
+        con.commit()
+    except IOError as e:
+        print('Delete Error')
+
 #PostgreSQL Coneection
 def postgresql_connection():
     try:
@@ -68,3 +78,6 @@ def postgresql_connection():
         return cnx
     except:
         print('Error: PostgreSQL Connection Failed')
+
+
+
