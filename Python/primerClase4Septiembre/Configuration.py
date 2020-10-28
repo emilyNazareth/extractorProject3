@@ -2,7 +2,7 @@ import pymssql
 import psycopg2
 import sqlite3
 
-#CONNECTION TO POSTGRESQL
+#CONNECTION TO SQLITE
 from sqlite3 import Error
 def sql_connection():
     try:

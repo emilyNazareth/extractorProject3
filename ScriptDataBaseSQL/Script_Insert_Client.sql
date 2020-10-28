@@ -1,6 +1,7 @@
 use extractorProject
 go
 
+--insert into CLIENT (ID, NAME, LAST_NAME, AGE, LAST_UPDATE) values (6309505, 'Luis', 'Andres', 55, '2020/07/14');
 insert into CLIENT (ID, NAME, LAST_NAME, AGE, LAST_UPDATE) values (2917491, 'Carlin', 'Overnell', 75, '2020/07/14');
 insert into CLIENT (ID, NAME, LAST_NAME, AGE, LAST_UPDATE) values (3823628, 'Edyth', 'Jagiela', 57, '2020/02/03');
 insert into CLIENT (ID, NAME, LAST_NAME, AGE, LAST_UPDATE) values (6309505, 'Goldie', 'Julien', 79, '2019/11/06');

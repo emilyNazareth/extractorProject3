@@ -11,6 +11,6 @@ def sqlite_insert(table, entities):
         'INSERT INTO Bitacora'+table+'(fileName, date, operation) VALUES(?, ?, ?)', entities)
 
     conection.commit()
-    print("Guardado con exito en bitacora")
+    print("Guardado con exito")
 
 
